@@ -14,7 +14,7 @@ const Navbar =  async () => {
     return (
         <nav className="bg-[#EFF1F3] h-20 ">
             <div className='container mx-auto p-4  flex justify-between items-center'>
-                <div className="text-lg sm:text-xl font-semibold text-gray-800">
+                <div className="text-lg sm:text-xl font-semibold text-[#0D1821]">
                     <a href="/">MyLogo</a>
                 </div>
 

@@ -9,18 +9,12 @@ import { useRouter } from "next/navigation";
 import { HiArrowLeft } from "react-icons/hi";
 import { useLoginUserMutation } from "@/redux/features/auth/authApi";
 import Cookies from 'js-cookie';
-
-export interface errorType {
-    data: {
-        message: string
-    }
-}
+import { errorType } from "@/types/type";
 
 const Login = () => {
     const [form] = Form.useForm();
     const router = useRouter();
     const [loginUser, { isLoading, isSuccess, isError, error, data }] = useLoginUserMutation();
-    console.log(data);
 
     useEffect(() => {
         if (isSuccess) {
