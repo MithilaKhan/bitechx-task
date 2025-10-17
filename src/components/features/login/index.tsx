@@ -1,19 +1,45 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Form } from "antd";
 import TextInput from "@/components/shared/TextInput";
-import OutlineButton from "@/components/shared/OutlineButton";
+import { toast } from "react-toastify";
 import SubmitButton from "@/components/shared/SubmitButton";
 import { useRouter } from "next/navigation";
 import { HiArrowLeft } from "react-icons/hi";
+import { useLoginUserMutation } from "@/redux/features/auth/authApi";
+import Cookies from 'js-cookie';
+
+export interface errorType {
+    data: {
+        message: string
+    }
+}
 
 const Login = () => {
-    const [form] = Form.useForm(); 
+    const [form] = Form.useForm();
     const router = useRouter();
+    const [loginUser, { isLoading, isSuccess, isError, error, data }] = useLoginUserMutation();
+    console.log(data);
 
-    const onFinish = (values: any) => {
-        console.log("Success:", values);
+    useEffect(() => {
+        if (isSuccess) {
+            toast.success("Login successful");
+            Cookies.set("accessToken", data?.token || "");
+            form.resetFields();
+            setTimeout(() => {
+                router.push("/");
+            }, 200);
+        }
+
+        if (isError) {
+            const errorMessage = (error as errorType)?.data?.message || "Something went wrong";
+            toast.error(errorMessage);
+        }
+    }, [isSuccess, isError, error, data, router, form]);
+
+    const onFinish = async (values: { email: string, password: string }) => {
+        await loginUser(values)
     };
 
     return (
@@ -35,7 +61,7 @@ const Login = () => {
                     >
                         <HiArrowLeft />
                         <span className="text-sm font-medium">Back</span>
-                    </button> 
+                    </button>
 
                     <div className=" mt-5 lg:mt-8">
                         <div className="mb-6">
@@ -52,8 +78,8 @@ const Login = () => {
                                     type="submit"
                                     className=""
                                 >
-                                    {/* {isLoading ? "Signing..." : "Sign in"} */}
-                                    Sign in
+                                    {isLoading ? "Signing..." : "Sign in"}
+
                                 </SubmitButton>
                             </Form.Item>
                         </Form>

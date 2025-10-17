@@ -4,6 +4,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import ReduxProvider from "@/redux/lib/ReduxProvider";
+import { ToastContainer } from "react-toastify";
 
 
 const poppins = Poppins({
@@ -20,12 +21,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${poppins.className} `}> 
+      <body className={`${poppins.className} `}>
         <ReduxProvider>
-        <AntdRegistry>
-         {children}
-        </AntdRegistry> 
-         </ReduxProvider>
+          <AntdRegistry>
+            <ToastContainer position="top-right" autoClose={1500}
+              toastClassName={"bg-white text-black shadow-md rounded-md p-4 text-sm sm:text-base w-[90%] sm:w-[450px] lg:w-[600px] mx-auto"}
+            />
+            {children}
+          </AntdRegistry>
+        </ReduxProvider>
       </body>
     </html>
   );

@@ -19,6 +19,7 @@
     "react-dom": "19.1.0",
     "react-icons": "^5.5.0",
     "react-redux": "^9.2.0",
+    "react-toastify": "^11.0.5",
     "sweetalert2": "^11.26.2"
   },
   "devDependencies": {
@@ -26,6 +27,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/react-toastify": "^4.0.2",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
