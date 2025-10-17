@@ -1,26 +1,48 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@layer components {
+  .container {
+    @apply mx-auto px-5 max-w-[1280px];
+  }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  /* Responsive container for smaller screens */
+  @media (min-width: 1536px) {
+    .container {
+      @apply max-w-[1286px];
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+
+/* Custom colors as utility classes */
+@layer utilities {
+  .text-primary {
+    @apply text-[#A44A3F];
+  }
+
+  .bg-primary {
+    @apply bg-[#A44A3F];
+  }
+
+  .border-primary {
+    @apply border-[#A44A3F];
+  }
+
+  .flex-center {
+    @apply flex justify-center items-center;
+  }
+
+  .section-title {
+    @apply text-3xl lg:text-[40px] font-[500];
+  }
+
+  .section-subtitle {
+    @apply text-[16px] lg:text-[20px] text-[#6D758F] max-w-[800px] mx-auto;
+  }
+}
+
+@layer base {
+  button {
+    @apply cursor-pointer;
+  }
 }
