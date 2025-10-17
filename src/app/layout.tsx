@@ -1,9 +1,9 @@
 "use client";
 
-// import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
+import ReduxProvider from "@/redux/lib/ReduxProvider";
 
 
 const poppins = Poppins({
@@ -12,9 +12,6 @@ const poppins = Poppins({
   subsets: ["latin"],
 });
 
-// export const metadata = {
-//   title: "bitechx-task",
-// };
 
 export default function RootLayout({
   children,
@@ -23,10 +20,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${poppins.className} `}>
+      <body className={`${poppins.className} `}> 
+        <ReduxProvider>
         <AntdRegistry>
          {children}
-        </AntdRegistry>
+        </AntdRegistry> 
+         </ReduxProvider>
       </body>
     </html>
   );
