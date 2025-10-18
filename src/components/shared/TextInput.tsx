@@ -7,7 +7,7 @@ const TextInput: React.FC<{ name: string; label: string }> = ({ name, label }) =
   return (
     <Form.Item
       name={name}
-      label={<p className="text-[#4E4E4E] text-[16px]">{label}</p>} 
+      label={<p className="text-[#5c5a5a] text-sm font-medium">{label}</p>} 
       rules={[
         {
           required: true,

@@ -5,7 +5,6 @@ import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 
 const LogOutButton = () => { 
-    const token = Cookies.get("accessToken"); 
     const router = useRouter();
     const handleLogOut = () => {
         Cookies.remove("accessToken");

@@ -1,12 +1,9 @@
-"use client";
-
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import ReduxProvider from "@/redux/lib/ReduxProvider";
 import { ToastContainer } from "react-toastify";
 import { ConfigProvider } from "antd";
-
 
 const poppins = Poppins({
   variable: "--font-poppins",

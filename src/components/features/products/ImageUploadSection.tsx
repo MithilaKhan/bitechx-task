@@ -1,12 +1,6 @@
 import React from 'react';
 import { Form, Input } from 'antd';
-import { Product } from '@/types/type';
-
-interface ImageUploadSectionProps {
-    imageUrls: string[];
-    setImageUrls: React.Dispatch<React.SetStateAction<string[]>>; 
-    product ?: Product | null
-}
+import { ImageUploadSectionProps } from '@/types/type';
 
 const ImageUploadSection = ({ imageUrls, setImageUrls , product }: ImageUploadSectionProps) => (
     <>

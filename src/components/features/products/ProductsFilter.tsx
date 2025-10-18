@@ -2,13 +2,7 @@ import React, { useState } from "react";
 import { Input, Select } from "antd";
 import { IoSearchOutline } from "react-icons/io5";
 import SubmitButton from "@/components/shared/SubmitButton";
-
-interface ProductsFilterProps {
-  CategoryOption: { value: string; label: string }[];
-  onCategoryChange: (value?: string) => void;
-  onSearch: (value: string) => void;
-  setIsProductForm: (value: boolean) => void
-}
+import { ProductsFilterProps } from "@/types/type";
 
 const ProductsFilter = ({
   CategoryOption,
@@ -37,7 +31,7 @@ const ProductsFilter = ({
         All Products
       </p>
 
-      {/* 🔍 Search Input */}
+      {/* Search Input */}
       <Input
         placeholder="Search products..."
         style={{ maxWidth: 450, height: 45 }}
@@ -49,7 +43,7 @@ const ProductsFilter = ({
         prefix={<IoSearchOutline className="text-primary" size={20} />}
       />
 
-      {/* 🧩 Category & Add Button */}
+      {/*  Category & Add Button */}
       <div className="flex items-center lg:justify-end justify-between gap-2">
         <Select
           placeholder="Select Category"

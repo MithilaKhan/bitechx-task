@@ -11,7 +11,7 @@ const ProductInfo = ({ product }: { product: Product }) => {
                     <p className="lg:text-2xl text-xl font-semibold mb-2">{product.name}</p>
                     <p className="text-gray-600 mb-4">{product.description}</p>
 
-                    <div className=" flex items-center justify-between">
+                    <div className=" flex lg:flex-row flex-col-reverse  gap-y-2 lg:items-center justify-between">
 
                         <p className="text-lg font-semibold text-gray-800">
                             💰 Price: <span className="text-primary">${product.price}</span>
@@ -31,8 +31,8 @@ const ProductInfo = ({ product }: { product: Product }) => {
                             <Image
                                 src={product.category.image}
                                 alt={product.category.name}
-                                width={80}
-                                height={80}
+                                width={60}
+                                height={60}
                                 className="rounded-md object-cover"
                             />
                         )}

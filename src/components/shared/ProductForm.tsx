@@ -1,32 +1,15 @@
-import { Form, Input, Modal, Select } from 'antd';
+import { Form, Modal } from 'antd';
 import React, { useEffect, useState } from 'react';
-import TextInput from './TextInput';
-import { useGetCategoriesQuery } from '@/redux/features/product/categoriesApi';
 import { useCreateProductMutation, useUpdateProductMutation } from '@/redux/features/product/productsApi';
 import { toast } from 'react-toastify';
-import TextArea from 'antd/es/input/TextArea';
-import { Product } from '@/types/type';
-
-type ProductDetailsModalProps = {
-    product?: Product | null;
-    isOpen: boolean;
-    onClose: () => void;
-    refetch: () => void;
-    setSelectedProduct: (product: Product | null) => void;
-};
+import { ProductDetailsModalProps } from '@/types/type';
+import ProductFormFields from '../ui/ProductFormFields';
 
 const ProductForm = ({ product, isOpen, onClose, refetch, setSelectedProduct }: ProductDetailsModalProps) => {
     const [form] = Form.useForm();
     const [imageUrls, setImageUrls] = useState<string[]>([]);
     const [createProduct, { isLoading }] = useCreateProductMutation();
     const [updateProduct, { isLoading: updateLoading }] = useUpdateProductMutation();
-    const { data: categories } = useGetCategoriesQuery(undefined);
-
-    const categoryOptions =
-        categories?.map((cat: { id: string; name: string }) => ({
-            label: cat.name,
-            value: cat.id,
-        })) || [];
 
     useEffect(() => {
         if (product?.id) {
@@ -79,7 +62,7 @@ const ProductForm = ({ product, isOpen, onClose, refetch, setSelectedProduct }: 
 
     return (
         <Modal
-            title={product?.id ? "Edit Product" : "Create Product"}
+            title={<p className=' text-lg lg:text-xl text-primary font-semibold'> {product?.id ? "Edit Product" : "Create Product"} </p> }
             open={isOpen}
             onCancel={() => {
                 setSelectedProduct(null);
@@ -92,66 +75,12 @@ const ProductForm = ({ product, isOpen, onClose, refetch, setSelectedProduct }: 
             width={900}
         >
             <Form form={form} onFinish={handleSubmit} layout="vertical">
-                <TextInput name="name" label="Product Name" />
-
-                <Form.Item name="categoryId" label="Category Name">
-                    <Select
-                        placeholder="Select Category"
-                        className="w-full rounded-lg"
-                        style={{ height: 45, minWidth: 150 }}
-                        options={categoryOptions}
-                        allowClear
-                    />
-                </Form.Item>
-
-                <Form.Item name="price" label="Price">
-                    <Input type="number" placeholder={`Enter your price`} style={{ height: 45 }} />
-                </Form.Item>
-
-                <Form.Item name="description" label="Description">
-                    <TextArea rows={4} placeholder={`Enter your description`} />
-                </Form.Item>
-
-                {/* Show existing images as <img> tags if product.id exists */}
-                {product?.id && (
-                    <Form.Item label="Existing Product Images">
-                        <div className=' flex items-center flex-wrap'>
-                            {imageUrls.map((url, index) => (
-                                <div key={index} style={{ marginBottom: 8 }}>
-                                    <img
-                                        src={url}
-                                        alt={`Product Image ${index + 1}`}
-                                        style={{ maxWidth: '100px', marginRight: '8px' }}
-                                    />
-                                </div>
-                            ))}
-                        </div>
-                    </Form.Item>
-                )}
-
-                {/* Input fields for adding new image URLs */}
-                <Form.Item label="Product Images">
-                    {imageUrls.map((url, index) => (
-                        <Input
-                            key={index}
-                            value={url}
-                            onChange={(e) => {
-                                const newUrls = [...imageUrls];
-                                newUrls[index] = e.target.value;
-                                setImageUrls(newUrls);
-                            }}
-                            placeholder={`Image URL ${index + 1}`}
-                            style={{ marginBottom: 8 }}
-                        />
-                    ))}
-                    <button
-                        type="button"
-                        className="text-primary mt-2"
-                        onClick={() => setImageUrls([...imageUrls, ""])}
-                    >
-                        + Add Image URL
-                    </button>
-                </Form.Item>
+                <ProductFormFields
+                    form={form}
+                    product={product}
+                    imageUrls={imageUrls}
+                    setImageUrls={setImageUrls}
+                />
 
                 <div className="flex justify-end mt-4">
                     <button
@@ -159,7 +88,10 @@ const ProductForm = ({ product, isOpen, onClose, refetch, setSelectedProduct }: 
                         className="bg-primary text-white font-medium rounded-lg px-6 py-2 hover:opacity-90 transition"
                         disabled={isLoading || updateLoading}
                     >
-                        {product?.id ? updateLoading ? "Updating..." : "Update Product" : isLoading ? "Creating..." : "Create Product"}
+                        {product?.id
+                            ? updateLoading ? "Updating..." : "Update Product"
+                            : isLoading ? "Creating..." : "Create Product"
+                        }
                     </button>
                 </div>
             </Form>

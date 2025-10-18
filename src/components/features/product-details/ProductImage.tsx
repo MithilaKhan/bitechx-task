@@ -1,7 +1,7 @@
 "use client";
 import React from 'react';
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
+import { Navigation, Pagination , Autoplay } from "swiper/modules";
 
 // Import Swiper styles
 import "swiper/css";
@@ -12,15 +12,19 @@ import { Product } from '@/types/type';
 const ProductImage = ({ product }: { product: Product }) => {
     return (
         <div>
-            <div className="w-full h-[300px] sm:h-[400px]">
+            <div className="w-full h-[270px] sm:h-[400px]">
                 <Swiper
-                    modules={[Navigation, Pagination]}
+                    modules={[Navigation, Pagination, Autoplay]}
                     navigation={{
                         prevEl: '.swiper-button-prev',
                         nextEl: '.swiper-button-next',
                     }}
                     pagination={{ clickable: true }}
                     loop
+                    autoplay={{
+                        delay: 1500, 
+                        disableOnInteraction: false, 
+                    }}
                     className="h-full"
                 >
                     {product.images && product.images.length > 0 ? (

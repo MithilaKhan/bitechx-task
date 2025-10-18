@@ -1,19 +1,7 @@
 import React from 'react';
 import ProductCard from './ProductCard';
 import { Pagination, ConfigProvider } from 'antd';
-import { Product } from '@/types/type';
-
-interface ProductListProps {
-  products: Product[];
-  isFetching: boolean;
-  onEdit: (product: Product) => void;
-  onDelete: (id: string) => void;
-  onDetails: (product: Product) => void;
-  offset: number;
-  limit: number;
-  total: number;
-  onPageChange: (page: number) => void;
-}
+import {  ProductListProps } from '@/types/type';
 
 const ProductList: React.FC<ProductListProps> = ({
   products,

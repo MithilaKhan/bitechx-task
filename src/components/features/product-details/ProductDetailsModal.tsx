@@ -1,25 +1,16 @@
-
 import React from "react";
 import { Modal } from "antd";
-
-import { Product } from "@/types/type";
+import {  ProductDetailsModalProps } from "@/types/type";
 import ProductInfo from "./ProductInfo";
 import ProductImage from "./ProductImage";
 
-type ProductDetailsModalProps = {
-  product: Product | null;
-  isOpen: boolean;
-  onClose: () => void;
-  setSelectedProduct: (product: Product | null) => void
-};
-
-const ProductDetailsModal = ({ product, isOpen, onClose, setSelectedProduct }: ProductDetailsModalProps) => {
+const ProductDetailsModal = ({ product, isOpen, onClose,refetch, setSelectedProduct }: ProductDetailsModalProps) => {
   if (!product) return null;
 
   return (
     <Modal
       open={isOpen}
-      onCancel={() => { setSelectedProduct(null); onClose(); }}
+      onCancel={() => { setSelectedProduct(null); onClose();  }}
       footer={null}
       centered
       width={900}
