@@ -24,7 +24,7 @@ export type Product = {
 
 export type ProductCardProps = {
     product: Product;
-    onEdit: (id: string) => void;
+    onEdit: (product: Product) => void;
     onDelete: (id: string) => void;
     onDetails: (product: Product) => void;
 };

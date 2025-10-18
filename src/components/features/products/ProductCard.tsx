@@ -11,7 +11,7 @@ const ProductCard = ({ product, onEdit, onDelete, onDetails }: ProductCardProps)
             <div className="absolute top-3 right-2 flex gap-2 z-10">
                 <div
                     className=" w-8 h-8 flex-center rounded-full  backdrop-blur-sm bg-[#0D1821]/50 cursor-pointer transition"
-                    onClick={() => onEdit(product.id)}
+                    onClick={() => onEdit(product)}
                     title="Edit"
                 >
                     <HiOutlinePencil className="w-4 h-4 text-white" />

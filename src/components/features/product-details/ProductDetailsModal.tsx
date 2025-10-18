@@ -1,30 +1,25 @@
-"use client";
 
 import React from "react";
 import { Modal } from "antd";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
-import Image from "next/image";
 
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
 import { Product } from "@/types/type";
+import ProductInfo from "./ProductInfo";
+import ProductImage from "./ProductImage";
 
 type ProductDetailsModalProps = {
   product: Product | null;
   isOpen: boolean;
   onClose: () => void;
+  setSelectedProduct: (product: Product | null) => void
 };
 
-const ProductDetailsModal = ({ product, isOpen, onClose }: ProductDetailsModalProps) => {
+const ProductDetailsModal = ({ product, isOpen, onClose, setSelectedProduct }: ProductDetailsModalProps) => {
   if (!product) return null;
 
   return (
     <Modal
       open={isOpen}
-      onCancel={onClose}
+      onCancel={() => { setSelectedProduct(null); onClose(); }}
       footer={null}
       centered
       width={900}
@@ -32,79 +27,10 @@ const ProductDetailsModal = ({ product, isOpen, onClose }: ProductDetailsModalPr
     >
       <div className="w-full flex flex-col gap-6">
         {/* Swiper Slider */}
-        <div className="w-full h-[300px] sm:h-[400px]">
-          <Swiper
-            modules={[Navigation, Pagination]}
-            navigation
-            pagination={{ clickable: true }}
-            loop
-            className="h-full"
-          >
-            {product.images && product.images.length > 0 ? (
-              product.images.map((img, idx) => (
-                <SwiperSlide key={idx}>
-                  <div className="w-full h-full flex items-center justify-center bg-gray-50">
-                    <Image
-                      src={img}
-                      alt={product.name}
-                      width={800}
-                      height={400}
-                      className="object-contain h-full w-auto rounded-lg"
-                    />
-                  </div>
-                </SwiperSlide>
-              ))
-            ) : (
-              <SwiperSlide>
-                <div className="w-full h-full flex items-center justify-center bg-gray-200">
-                  No Image Available
-                </div>
-              </SwiperSlide>
-            )}
-          </Swiper>
-        </div>
+        <ProductImage product={product} />
 
         {/* Product Info Section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:py-4 pt-0">
-          {/* Product Details */}
-          <div>
-            <p className="lg:text-2xl text-xl font-semibold mb-2">{product.name}</p>
-            <p className="text-gray-600 mb-4">{product.description}</p>
-
-            <div className=" flex items-center justify-between">
-     
-            <p className="text-lg font-semibold text-gray-800">
-              💰 Price: <span className="text-primary">${product.price}</span>
-            </p> 
-
-                     <p className="lg:text-[16px] text-sm  mt-1">
-                Slug: <span className="font-medium">{product.slug}</span>
-              </p> 
-            </div>
-          </div>
-
-          {/* Category Info */}
-          <div className="bg-gray-50 p-4 rounded-lg border border-gray-100">
-            <h3 className="text-lg font-semibold mb-4">📦 Category Info</h3>
-            <div className="flex items-start gap-3 mb-2">
-              {product.category?.image && (
-                <Image
-                  src={product.category.image}
-                  alt={product.category.name}
-                  width={80}
-                  height={80}
-                  className="rounded-md object-cover"
-                />
-              )}
-              <div>
-                <p className="font-semibold lg:text-lg text-[16px]">{product.category.name}</p>
-                <p className="text-sm text-gray-600">
-                  {product.category.description || "No description"}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+        <ProductInfo product={product} />
       </div>
     </Modal>
   );

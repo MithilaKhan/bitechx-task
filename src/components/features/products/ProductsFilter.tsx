@@ -7,16 +7,18 @@ interface ProductsFilterProps {
   CategoryOption: { value: string; label: string }[];
   onCategoryChange: (value?: string) => void;
   onSearch: (value: string) => void;
+  setIsProductForm: (value: boolean) => void
 }
 
 const ProductsFilter = ({
   CategoryOption,
   onCategoryChange,
   onSearch,
+  setIsProductForm
 }: ProductsFilterProps) => {
-  const [searchValue, setSearchValue] = useState(""); 
+  const [searchValue, setSearchValue] = useState("");
 
-    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setSearchValue(value);
 
@@ -24,6 +26,10 @@ const ProductsFilter = ({
       onSearch("");
     }
   };
+
+  const handleAddProduct = () => {
+    setIsProductForm(true)
+  }
 
   return (
     <div className="flex lg:flex-row flex-col lg:items-center items-start justify-between gap-y-3">
@@ -48,12 +54,12 @@ const ProductsFilter = ({
         <Select
           placeholder="Select Category"
           className="w-full rounded-lg"
-          style={{ height: 45 , minWidth: 150}}
+          style={{ height: 45, minWidth: 150 }}
           options={CategoryOption}
           allowClear
           onChange={(value) => onCategoryChange(value)}
         />
-        <SubmitButton className="px-4 w-full">+ Add Product</SubmitButton>
+        <SubmitButton className="px-4 w-full" onClick={handleAddProduct}>+ Add Product</SubmitButton>
       </div>
     </div>
   );

@@ -19,7 +19,7 @@ const TextInput: React.FC<{ name: string; label: string }> = ({ name, label }) =
       <Input
         placeholder={`Enter your ${label.toLowerCase()}`}
         style={{
-            height: 48,
+            height: 45,
             border: "1px solid #d9d9d9",
             outline: "none",
             boxShadow: "none",

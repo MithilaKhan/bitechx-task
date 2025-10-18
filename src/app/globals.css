@@ -49,4 +49,27 @@
   button {
     @apply cursor-pointer;
   }
+} 
+
+.swiper-button-prev {
+  height: 40px !important;
+  width: 40px !important;
+  position: absolute;
+  left: -2px !important; 
+  color: brown !important;
+}
+
+.swiper-button-next {
+  height: 40px !important;
+  width: 40px !important;
+  position: absolute;
+  right: -2px !important;
+} 
+
+.swiper-pagination-bullet-active {
+  background-color: #A44A3F !important;
+} 
+
+.swiper-pagination-bullet {
+  background-color: #A44A3F !important;
 }
