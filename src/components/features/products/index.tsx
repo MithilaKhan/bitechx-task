@@ -67,7 +67,6 @@ const AllProducts = () => {
             if (result.isConfirmed) {
                 try {
                     const response = await deleteProduct(id); 
-                    console.log(response);
                     if ("data" in response) {
                         Swal.fire("Deleted!", "Your product has been deleted.", "success"); 
                         refetch();
@@ -100,7 +99,7 @@ const AllProducts = () => {
         setOffset((page - 1) * limit);
     };
 
-    console.log("AllProductsData", activeData);
+
 
     return (
         <div className='container pt-5 lg:pt-10'>
