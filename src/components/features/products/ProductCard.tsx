@@ -49,10 +49,12 @@ const ProductCard = ({ product, onEdit, onDelete, onDetails }: ProductCardProps)
 
             {/* Product Info */}
             <div className="flex-1 mb-4 p-3">
-                <h2 className="text-lg font-semibold">{product.name}</h2>
-                <p className="text-sm text-gray-600 mb-2">{product.description}</p>
-                <p className="text-sm font-medium">Category: {product.category.name}</p>
-                <p className="text-sm font-semibold mt-1">Price: ${product.price}</p>
+                <h2 className="lg:text-lg text-[16px] font-medium truncate pb-2">{product.name}</h2>
+                <p className="text-sm lg:text-sm text-gray-600 mb-1 max-h-32 truncate">{product.description}</p> 
+                <div className=" flex items-center justify-between"> 
+                <p className="text-sm lg:text-sm text-gray-600"> <span className="font-medium">  Category: </span> {product.category.name}</p>
+                <p className="text-lg lg:text-xl font-semibold  text-primary"> ${product.price}</p>
+                </div>
             </div>
         </div>
     );

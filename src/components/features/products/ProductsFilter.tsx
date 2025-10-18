@@ -1,25 +1,62 @@
-import SubmitButton from '@/components/shared/SubmitButton';
-import { Input, Select } from 'antd';
-import React from 'react';
-import { IoSearchOutline } from 'react-icons/io5';
+import React, { useState } from "react";
+import { Input, Select } from "antd";
+import { IoSearchOutline } from "react-icons/io5";
+import SubmitButton from "@/components/shared/SubmitButton";
 
-const ProductsFilter = ({CategoryOption}:{CategoryOption: {value: string, label: string}[]}) => { 
-    return (
-        <div className=' flex items-center justify-between'>
-            <p className=' lg:text-xl text-lg font-medium text-[#0D1821] '> All Products </p>
-            <Input placeholder="Search" style={{ width: 350, height: 45 }} className=' border border-[#5e5c5c] rounded-lg' allowClear prefix={<IoSearchOutline className=' text-primary' size={20} />} />
-            <div className='flex items-center gap-2'>
-                <Select
-                    placeholder="Select Category"
-                    className="w-full rounded-lg p-2"
-                    style={{ height: 45 }}
-                    options={CategoryOption}
-                   
-                />
-                <SubmitButton className=' px-4' > + Add Product</SubmitButton>
-            </div>
-        </div>
-    );
+interface ProductsFilterProps {
+  CategoryOption: { value: string; label: string }[];
+  onCategoryChange: (value?: string) => void;
+  onSearch: (value: string) => void;
+}
+
+const ProductsFilter = ({
+  CategoryOption,
+  onCategoryChange,
+  onSearch,
+}: ProductsFilterProps) => {
+  const [searchValue, setSearchValue] = useState(""); 
+
+    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearchValue(value);
+
+    if (value.trim() === "") {
+      onSearch("");
+    }
+  };
+
+  return (
+    <div className="flex lg:flex-row flex-col lg:items-center items-start justify-between gap-y-3">
+      <p className="lg:text-2xl text-xl font-medium text-[#0D1821]">
+        All Products
+      </p>
+
+      {/* 🔍 Search Input */}
+      <Input
+        placeholder="Search products..."
+        style={{ maxWidth: 450, height: 45 }}
+        className="border border-[#5e5c5c] rounded-lg"
+        allowClear
+        value={searchValue}
+        onChange={handleSearchChange}
+        onPressEnter={() => onSearch(searchValue.trim())}
+        prefix={<IoSearchOutline className="text-primary" size={20} />}
+      />
+
+      {/* 🧩 Category & Add Button */}
+      <div className="flex items-center lg:justify-end justify-between gap-2">
+        <Select
+          placeholder="Select Category"
+          className="w-full rounded-lg"
+          style={{ height: 45 , minWidth: 150}}
+          options={CategoryOption}
+          allowClear
+          onChange={(value) => onCategoryChange(value)}
+        />
+        <SubmitButton className="px-4 w-full">+ Add Product</SubmitButton>
+      </div>
+    </div>
+  );
 };
 
 export default ProductsFilter;
